@@ -1,0 +1,23 @@
+name: Run gnrt build
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: ["main"]
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Rust
+        uses: actions/checkout@v4
+        with:
+          toolchain: stable
+          override: true
+      - name: Build gnrt
+        working-directory: ./gnrt
+        run: cargo build
+
+      - name: Run tests
+        working-directory: ./gnrt
+        run: cargo test
