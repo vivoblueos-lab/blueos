@@ -136,3 +136,24 @@ build_script_outputs = [ "config.rs" ]
 
 [crate.thiserror]
 build_script_outputs = [ "private.rs" ]
+
+[crate.defmt-rtt]
+license_files = ["../../LICENSE-MIT"]
+build_script_outputs = [ "consts.rs" ]
+
+[crate.cortex-m-rt-macros]
+license_files = ["../../LICENSE-MIT"]
+build_script_outputs = [ "link.x" ]
+
+[crate.cortex-m-rt]
+license_files = ["../LICENSE-MIT"]
+build_script_outputs = [ "link.x" ]
+
+[crate.defmt-test-macros]
+license_files = ["../../../LICENSE-MIT"]
+
+[crate.defmt-test]
+license_files = ["../../LICENSE-MIT"]
+
+[crate.cortex-m-semihosting]
+license_files = ["LICENSE-MIT"]
