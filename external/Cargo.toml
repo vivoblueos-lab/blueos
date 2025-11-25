@@ -12,7 +12,6 @@ delegate = "0.13.3"
 embedded-io = "0.6.1"
 embedded-hal = "1.0.0"
 flat_device_tree = "3.1.1"
-gd32e5 = "0.9.1"
 heapless = "0.8.0"
 log = "0.4.22"
 memchr = "2.7.4"
@@ -106,4 +105,10 @@ default-features = false
 features = [
     "macros",
     "phf_macros",
+]
+
+[dependencies.gd32e5]
+version = "0.9.1"
+features = [
+    "gd32e507",
 ]
