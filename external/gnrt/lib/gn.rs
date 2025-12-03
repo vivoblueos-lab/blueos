@@ -79,7 +79,7 @@ pub struct RuleDetail {
     #[cfg(feature = "blueos")]
     pub proc_macro_deps: Vec<DepGroup>,
     pub build_deps: Vec<DepGroup>,
-    pub aliased_deps: Vec<(String, PackageId)>,
+    pub aliased_deps: Vec<(String, PackageId, String)>,
     pub features: Vec<String>,
     pub build_root: Option<String>,
     pub build_script_sources: Vec<String>,
@@ -225,8 +225,8 @@ pub fn build_rule_from_dep(
     }
 
     let create_package_id = |dep: &DepOfDep| {
-        let name = NormalizedName::from_crate_name(&dep.package_name).to_string();
-        let use_name = NormalizedName::from_crate_name(&dep.use_name).to_string();
+        let name = dep.package_name.clone();
+        let use_name = NormalizedName::from_crate_name(&dep.package_name).to_string();
         let epoch = match name_lib_style {
             // TODO(danakj): Separate this choice to another parameter option.
             NameLibStyle::LibLiteral => Some(format!(
@@ -249,10 +249,26 @@ pub fn build_rule_from_dep(
         .collect();
     let aliased_normal_deps = {
         let mut aliases = Vec::new();
+        let get_crate_type = |lib_target: &Vec<Option<deps::LibTarget>>| -> String {
+            lib_target
+                .iter()
+                .find_map(|opt| opt.as_ref())
+                .map(|lib_target| lib_target.lib_type.to_string())
+                .unwrap_or_else(String::new)
+        };
         for dep in &normal_deps {
             let target_name = NormalizedName::from_crate_name(&dep.package_name).to_string();
             if target_name != dep.use_name {
-                aliases.push((dep.use_name.clone(), create_package_id(dep)));
+                let crate_type = get_crate_type(&dep.lib_target);
+                aliases.push((dep.use_name.clone(), create_package_id(dep), crate_type));
+            }
+        }
+
+        for dep in &proc_macro_deps {
+            let target_name = NormalizedName::from_crate_name(&dep.package_name).to_string();
+            if target_name != dep.use_name {
+                let crate_type = get_crate_type(&dep.lib_target);
+                aliases.push((dep.use_name.clone(), create_package_id(dep), crate_type));
             }
         }
         aliases.sort_unstable();
@@ -291,16 +307,28 @@ pub fn build_rule_from_dep(
 
     #[cfg(feature = "blueos")]
     {
-        detail_template.proc_macro_deps = group_deps(&proc_macro_deps, |d| PackageId {
-            name: d.package_name.clone(),
-            use_name: d.use_name.clone(),
-            epoch: match name_lib_style {
-                NameLibStyle::LibLiteral => Some(format!(
-                    "{}.{}.{}",
-                    &d.version.major, &d.version.minor, &d.version.patch
-                )),
-                NameLibStyle::PackageName => None,
-            },
+        detail_template.proc_macro_deps = group_deps(&proc_macro_deps, |d| {
+            let target_name = NormalizedName::from_crate_name(&d.package_name).to_string();
+            let effective_use_name = if target_name != d.use_name {
+                target_name.clone()
+            } else {
+                d.use_name.clone()
+            };
+            PackageId {
+                name: d.package_name.clone(),
+                use_name: effective_use_name,
+                epoch: match name_lib_style {
+                    // TODO(danakj): Separate this choice to another parameter option.
+                    #[cfg(not(feature = "blueos"))]
+                    NameLibStyle::LibLiteral => Some(Epoch::from_version(&d.version).to_string()),
+                    #[cfg(feature = "blueos")]
+                    NameLibStyle::LibLiteral => Some(format!(
+                        "{}.{}.{}",
+                        &d.version.major, &d.version.minor, &d.version.patch
+                    )),
+                    NameLibStyle::PackageName => None,
+                },
+            }
         });
     }
 
@@ -491,15 +519,7 @@ pub fn build_rule_from_dep(
                     (Some(normalized_crate_name.to_string()), Some(crate_epoch))
                 }
             };
-            let crate_type = {
-                // The stdlib is a "dylib" crate but we only want rlibs.
-                let t = lib_target.lib_type.to_string();
-                if t == "dylib" {
-                    "rlib".to_string()
-                } else {
-                    t
-                }
-            };
+            let crate_type = lib_target.lib_type.to_string();
 
             let mut lib_detail = detail_template.clone();
             lib_detail.crate_name = crate_name;
