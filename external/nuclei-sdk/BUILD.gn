@@ -29,15 +29,16 @@ static_library("nuclei-sdk") {
         "src/gd32vw55x_timer.c",
         "src/gd32vw55x_trng.c",
         "src/gd32vw55x_usart.c",
-        "src/gd32vw55x_wwdgt.c"
+        "src/gd32vw55x_wwdgt.c",
+        "src/mod.c",
+        "src/system_gd32vw55x.c",
     ]
     include_dirs = [
         "include",
         "include/NMSIS/Core/Include",
     ]
-    cflags = [
-        "-isystem",
-        "$sysroot_path/include"
+    configs += [
+      "//build/boards/${board}:kernel_config",
     ]
 }
 
@@ -50,12 +51,8 @@ bindgen("nuclei_header") {
   sources = [ 
     "include/nuclei_sdk.h",
   ]
-  cflags = [
-    "--target=$llvm_target",
-    "-fshort-enums",
-    "-fsigned-char",
-    "-isystem",
-    "$sysroot_path/include",
+  configs += [
+    "//build/boards/${board}:kernel_config",
   ]
   include_dirs = ["include/NMSIS/Core/Include"]
 }
