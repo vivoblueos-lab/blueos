@@ -26,6 +26,7 @@ virtio-drivers = "0.11.0"
 zerocopy = "0.8.25"
 defmt-rtt = "1.0.0"
 defmt-test = "0.4.0"
+bme280 = "0.5.1"
 
 [dependencies.const-default]
 version = "1.0.0"
