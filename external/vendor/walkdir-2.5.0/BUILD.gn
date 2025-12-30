@@ -25,6 +25,7 @@ cargo_crate("walkdir") {
   edition = "2018"
   deps = [ "//external/vendor/same-file-1.0.6:same_file" ]
   deps = [ "//external/vendor/winapi-util-0.1.11:winapi_util" ]
+
   cargo_pkg_name = "walkdir"
   cargo_pkg_version = "2.5.0"
 

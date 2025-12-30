@@ -25,6 +25,7 @@ cargo_crate("scroll") {
   edition = "2021"
   proc_macro_deps = [ "//external/vendor/scroll_derive-0.12.1:scroll_derive" ]
   features = [ "derive" ]
+
   cargo_pkg_name = "scroll"
   cargo_pkg_version = "0.12.0"
 

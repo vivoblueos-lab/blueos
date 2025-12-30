@@ -36,6 +36,7 @@ cargo_crate("goblin") {
     "endian_fd",
     "log",
   ]
+
   cargo_pkg_name = "goblin"
   cargo_pkg_version = "0.9.3"
 

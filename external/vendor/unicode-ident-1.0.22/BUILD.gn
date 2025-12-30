@@ -23,6 +23,7 @@ cargo_crate("unicode_ident") {
   sources = [ "//external/vendor/unicode-ident-1.0.22/src/lib.rs" ]
   inputs = []
   edition = "2018"
+
   cargo_pkg_name = "unicode-ident"
   cargo_pkg_version = "1.0.22"
 

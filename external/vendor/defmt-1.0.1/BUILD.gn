@@ -29,6 +29,7 @@ cargo_crate("defmt") {
     "alloc",
     "ip_in_core",
   ]
+
   cargo_pkg_name = "defmt"
   cargo_pkg_version = "1.0.1"
   build_root = "//external/vendor/defmt-1.0.1/build.rs"

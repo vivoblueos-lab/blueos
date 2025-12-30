@@ -24,6 +24,7 @@ cargo_crate("defmt_parser") {
   inputs = []
   edition = "2021"
   deps = [ "//external/vendor/thiserror-2.0.17:thiserror" ]
+
   cargo_pkg_name = "defmt-parser"
   cargo_pkg_version = "1.0.0"
 

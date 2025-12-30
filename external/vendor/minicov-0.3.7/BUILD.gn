@@ -28,6 +28,7 @@ cargo_crate("minicov") {
     "//external/vendor/walkdir-2.5.0:walkdir",
   ]
   features = [ "alloc" ]
+
   cargo_pkg_name = "minicov"
   cargo_pkg_version = "0.3.7"
   build_root = "//external/vendor/minicov-0.3.7/build.rs"

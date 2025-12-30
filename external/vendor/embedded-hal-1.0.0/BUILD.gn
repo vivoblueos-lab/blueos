@@ -23,6 +23,7 @@ cargo_crate("embedded_hal") {
   sources = [ "//external/vendor/embedded-hal-1.0.0/src/lib.rs" ]
   inputs = []
   edition = "2021"
+
   cargo_pkg_name = "embedded-hal"
   cargo_pkg_version = "1.0.0"
 

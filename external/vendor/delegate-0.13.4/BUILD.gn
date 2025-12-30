@@ -28,6 +28,7 @@ cargo_crate("delegate") {
     "//external/vendor/quote-1.0.41:quote",
     "//external/vendor/syn-2.0.108:syn",
   ]
+
   cargo_pkg_name = "delegate"
   cargo_pkg_version = "0.13.4"
 

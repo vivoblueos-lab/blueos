@@ -23,6 +23,7 @@ cargo_crate("nb") {
   sources = [ "//external/vendor/nb-1.1.0/src/lib.rs" ]
   inputs = []
   edition = "2018"
+
   cargo_pkg_name = "nb"
   cargo_pkg_version = "1.1.0"
 

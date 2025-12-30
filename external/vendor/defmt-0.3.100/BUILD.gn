@@ -31,6 +31,7 @@ cargo_crate("defmt") {
   aliased_deps = {
     defmt10 = "//external/vendor/defmt-1.0.1:defmt"
   }
+
   cargo_pkg_name = "defmt"
   cargo_pkg_version = "0.3.100"
 

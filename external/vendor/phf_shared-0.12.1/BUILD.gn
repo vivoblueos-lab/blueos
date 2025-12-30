@@ -24,6 +24,7 @@ cargo_crate("phf_shared") {
   inputs = []
   edition = "2021"
   deps = [ "//external/vendor/siphasher-1.0.1:siphasher" ]
+
   cargo_pkg_name = "phf_shared"
   cargo_pkg_version = "0.12.1"
 

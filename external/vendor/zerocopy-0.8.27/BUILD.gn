@@ -30,6 +30,7 @@ cargo_crate("zerocopy") {
     "derive",
     "zerocopy-derive",
   ]
+
   cargo_pkg_name = "zerocopy"
   cargo_pkg_version = "0.8.27"
   build_root = "//external/vendor/zerocopy-0.8.27/build.rs"

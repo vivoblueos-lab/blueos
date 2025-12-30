@@ -25,6 +25,7 @@ cargo_crate("cortex_m_rt") {
   edition = "2021"
   proc_macro_deps =
       [ "//external/vendor/cortex-m-rt-macros-0.7.5:cortex_m_rt_macros" ]
+
   cargo_pkg_name = "cortex-m-rt"
   cargo_pkg_version = "0.7.5"
   build_root = "//external/vendor/cortex-m-rt-0.7.5/build.rs"

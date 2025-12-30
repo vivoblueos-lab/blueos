@@ -23,6 +23,7 @@ cargo_crate("critical_section") {
   sources = [ "//external/vendor/critical-section-1.2.0/src/lib.rs" ]
   inputs = []
   edition = "2018"
+
   cargo_pkg_name = "critical-section"
   cargo_pkg_version = "1.2.0"
 

@@ -27,6 +27,7 @@ cargo_crate("memchr") {
     "alloc",
     "std",
   ]
+
   cargo_pkg_name = "memchr"
   cargo_pkg_version = "2.7.6"
 

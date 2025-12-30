@@ -36,6 +36,7 @@ cargo_crate("virtio_drivers") {
     "alloc",
     "embedded-io",
   ]
+
   cargo_pkg_name = "virtio-drivers"
   cargo_pkg_version = "0.11.0"
 

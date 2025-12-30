@@ -23,6 +23,7 @@ cargo_crate("windows_link") {
   sources = [ "//external/vendor/windows-link-0.2.1/src/lib.rs" ]
   inputs = []
   edition = "2021"
+
   cargo_pkg_name = "windows-link"
   cargo_pkg_version = "0.2.1"
 

@@ -27,6 +27,7 @@ cargo_crate("embedded_hal") {
     "//external/vendor/nb-0.1.3:nb",
     "//external/vendor/void-1.0.2:void",
   ]
+
   cargo_pkg_name = "embedded-hal"
   cargo_pkg_version = "0.2.7"
 

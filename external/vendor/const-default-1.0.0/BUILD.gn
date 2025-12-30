@@ -23,6 +23,7 @@ cargo_crate("const_default") {
   sources = [ "//external/vendor/const-default-1.0.0/src/lib.rs" ]
   inputs = []
   edition = "2018"
+
   cargo_pkg_name = "const-default"
   cargo_pkg_version = "1.0.0"
 

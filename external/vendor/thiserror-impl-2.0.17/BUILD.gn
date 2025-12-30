@@ -28,6 +28,7 @@ cargo_crate("thiserror_impl") {
     "//external/vendor/quote-1.0.41:quote",
     "//external/vendor/syn-2.0.108:syn",
   ]
+
   cargo_pkg_name = "thiserror-impl"
   cargo_pkg_version = "2.0.17"
 

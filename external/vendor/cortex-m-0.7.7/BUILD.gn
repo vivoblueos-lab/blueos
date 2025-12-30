@@ -29,6 +29,7 @@ cargo_crate("cortex_m") {
     "//external/vendor/embedded-hal-0.2.7:embedded_hal",
     "//external/vendor/volatile-register-0.2.2:volatile_register",
   ]
+
   cargo_pkg_name = "cortex-m"
   cargo_pkg_version = "0.7.7"
   build_root = "//external/vendor/cortex-m-0.7.7/build.rs"

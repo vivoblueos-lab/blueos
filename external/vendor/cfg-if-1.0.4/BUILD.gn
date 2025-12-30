@@ -23,6 +23,7 @@ cargo_crate("cfg_if") {
   sources = [ "//external/vendor/cfg-if-1.0.4/src/lib.rs" ]
   inputs = []
   edition = "2018"
+
   cargo_pkg_name = "cfg-if"
   cargo_pkg_version = "1.0.4"
 

@@ -25,6 +25,7 @@ cargo_crate("winapi_util") {
   edition = "2021"
   deps = []
   deps = [ "//external/vendor/windows-sys-0.61.2:windows_sys" ]
+
   cargo_pkg_name = "winapi-util"
   cargo_pkg_version = "0.1.11"
 

@@ -29,6 +29,7 @@ cargo_crate("phf") {
     "macros",
     "phf_macros",
   ]
+
   cargo_pkg_name = "phf"
   cargo_pkg_version = "0.12.1"
 

@@ -30,6 +30,7 @@ cargo_crate("defmt_macros") {
     "//external/vendor/quote-1.0.41:quote",
     "//external/vendor/syn-2.0.108:syn",
   ]
+
   cargo_pkg_name = "defmt-macros"
   cargo_pkg_version = "1.0.1"
   build_root = "//external/vendor/defmt-macros-1.0.1/build.rs"

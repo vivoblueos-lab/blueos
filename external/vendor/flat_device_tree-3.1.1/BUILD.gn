@@ -23,6 +23,7 @@ cargo_crate("flat_device_tree") {
   sources = [ "//external/vendor/flat_device_tree-3.1.1/src/lib.rs" ]
   inputs = []
   edition = "2021"
+
   cargo_pkg_name = "flat_device_tree"
   cargo_pkg_version = "3.1.1"
 

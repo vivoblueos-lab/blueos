@@ -38,6 +38,7 @@ cargo_crate("syn") {
     "proc-macro",
     "visit-mut",
   ]
+
   cargo_pkg_name = "syn"
   cargo_pkg_version = "2.0.108"
 

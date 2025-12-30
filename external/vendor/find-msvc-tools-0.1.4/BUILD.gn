@@ -23,6 +23,7 @@ cargo_crate("find_msvc_tools") {
   sources = [ "//external/vendor/find-msvc-tools-0.1.4/src/lib.rs" ]
   inputs = []
   edition = "2018"
+
   cargo_pkg_name = "find-msvc-tools"
   cargo_pkg_version = "0.1.4"
 

@@ -37,6 +37,7 @@ cargo_crate("spin") {
   aliased_deps = {
     lock_api_crate = "//external/vendor/lock_api-0.4.14:lock_api"
   }
+
   cargo_pkg_name = "spin"
   cargo_pkg_version = "0.9.8"
 

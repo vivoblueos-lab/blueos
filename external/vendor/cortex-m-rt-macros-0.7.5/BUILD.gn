@@ -28,6 +28,7 @@ cargo_crate("cortex_m_rt_macros") {
     "//external/vendor/quote-1.0.41:quote",
     "//external/vendor/syn-2.0.108:syn",
   ]
+
   cargo_pkg_name = "cortex-m-rt-macros"
   cargo_pkg_version = "0.7.5"
 

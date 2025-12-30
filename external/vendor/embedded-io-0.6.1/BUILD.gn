@@ -23,6 +23,7 @@ cargo_crate("embedded_io") {
   sources = [ "//external/vendor/embedded-io-0.6.1/src/lib.rs" ]
   inputs = []
   edition = "2021"
+
   cargo_pkg_name = "embedded-io"
   cargo_pkg_version = "0.6.1"
 

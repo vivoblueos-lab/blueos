@@ -23,6 +23,7 @@ cargo_crate("paste") {
   sources = [ "//external/vendor/paste-1.0.15/src/lib.rs" ]
   inputs = []
   edition = "2018"
+
   cargo_pkg_name = "paste"
   cargo_pkg_version = "1.0.15"
   build_root = "//external/vendor/paste-1.0.15/build.rs"

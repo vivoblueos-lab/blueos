@@ -29,6 +29,7 @@ cargo_crate("arm_gic") {
     "//external/vendor/thiserror-2.0.17:thiserror",
     "//external/vendor/zerocopy-0.8.27:zerocopy",
   ]
+
   cargo_pkg_name = "arm-gic"
   cargo_pkg_version = "0.4.0"
 

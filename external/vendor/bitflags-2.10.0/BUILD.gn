@@ -23,6 +23,7 @@ cargo_crate("bitflags") {
   sources = [ "//external/vendor/bitflags-2.10.0/src/lib.rs" ]
   inputs = []
   edition = "2021"
+
   cargo_pkg_name = "bitflags"
   cargo_pkg_version = "2.10.0"
 

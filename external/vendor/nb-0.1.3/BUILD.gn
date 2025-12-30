@@ -24,6 +24,7 @@ cargo_crate("nb") {
   inputs = []
   edition = "2015"
   deps = [ "//external/vendor/nb-1.1.0:nb" ]
+
   cargo_pkg_name = "nb"
   cargo_pkg_version = "0.1.3"
 

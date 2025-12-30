@@ -23,6 +23,7 @@ cargo_crate("plain") {
   sources = [ "//external/vendor/plain-0.2.3/src/lib.rs" ]
   inputs = []
   edition = "2015"
+
   cargo_pkg_name = "plain"
   cargo_pkg_version = "0.2.3"
 

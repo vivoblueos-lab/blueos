@@ -23,6 +23,7 @@ cargo_crate("void") {
   sources = [ "//external/vendor/void-1.0.2/src/lib.rs" ]
   inputs = []
   edition = "2015"
+
   cargo_pkg_name = "void"
   cargo_pkg_version = "1.0.2"
 

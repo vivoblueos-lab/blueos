@@ -25,6 +25,7 @@ cargo_crate("bare_metal") {
   edition = "2015"
   build_deps = [ "//external/vendor/rustc_version-0.2.3:rustc_version" ]
   features = [ "const-fn" ]
+
   cargo_pkg_name = "bare-metal"
   cargo_pkg_version = "0.2.5"
   build_root = "//external/vendor/bare-metal-0.2.5/build.rs"

@@ -24,6 +24,7 @@ cargo_crate("siphasher") {
   inputs = []
   edition = "2018"
   features = [ "std" ]
+
   cargo_pkg_name = "siphasher"
   cargo_pkg_version = "1.0.1"
 

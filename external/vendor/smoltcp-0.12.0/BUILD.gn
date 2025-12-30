@@ -56,6 +56,7 @@ cargo_crate("smoltcp") {
     "socket-tcp",
     "socket-udp",
   ]
+
   cargo_pkg_name = "smoltcp"
   cargo_pkg_version = "0.12.0"
   build_root = "//external/vendor/smoltcp-0.12.0/build.rs"

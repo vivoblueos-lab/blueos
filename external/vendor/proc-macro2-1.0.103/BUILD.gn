@@ -25,6 +25,7 @@ cargo_crate("proc_macro2") {
   edition = "2021"
   deps = [ "//external/vendor/unicode-ident-1.0.22:unicode_ident" ]
   features = [ "proc-macro" ]
+
   cargo_pkg_name = "proc-macro2"
   cargo_pkg_version = "1.0.103"
   build_root = "//external/vendor/proc-macro2-1.0.103/build.rs"

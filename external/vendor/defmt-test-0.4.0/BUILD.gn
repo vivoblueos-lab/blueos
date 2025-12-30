@@ -30,6 +30,7 @@ cargo_crate("defmt_test") {
   ]
   proc_macro_deps =
       [ "//external/vendor/defmt-test-macros-0.3.2:defmt_test_macros" ]
+
   cargo_pkg_name = "defmt-test"
   cargo_pkg_version = "0.4.0"
 

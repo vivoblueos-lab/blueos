@@ -27,6 +27,7 @@ cargo_crate("heapless") {
     "//external/vendor/hash32-0.3.1:hash32",
     "//external/vendor/stable_deref_trait-1.2.1:stable_deref_trait",
   ]
+
   cargo_pkg_name = "heapless"
   cargo_pkg_version = "0.8.0"
   build_root = "//external/vendor/heapless-0.8.0/build.rs"

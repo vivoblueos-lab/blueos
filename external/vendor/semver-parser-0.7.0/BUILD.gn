@@ -23,6 +23,7 @@ cargo_crate("semver_parser") {
   sources = [ "//external/vendor/semver-parser-0.7.0/src/lib.rs" ]
   inputs = []
   edition = "2015"
+
   cargo_pkg_name = "semver-parser"
   cargo_pkg_version = "0.7.0"
 

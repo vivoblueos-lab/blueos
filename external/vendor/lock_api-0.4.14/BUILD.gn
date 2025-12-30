@@ -25,6 +25,7 @@ cargo_crate("lock_api") {
   edition = "2021"
   deps = [ "//external/vendor/scopeguard-1.2.0:scopeguard" ]
   features = [ "atomic_usize" ]
+
   cargo_pkg_name = "lock_api"
   cargo_pkg_version = "0.4.14"
 

@@ -27,6 +27,7 @@ cargo_crate("managed") {
     "alloc",
     "map",
   ]
+
   cargo_pkg_name = "managed"
   cargo_pkg_version = "0.8.0"
 

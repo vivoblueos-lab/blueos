@@ -28,6 +28,7 @@ cargo_crate("scroll_derive") {
     "//external/vendor/quote-1.0.41:quote",
     "//external/vendor/syn-2.0.108:syn",
   ]
+
   cargo_pkg_name = "scroll_derive"
   cargo_pkg_version = "0.12.1"
 

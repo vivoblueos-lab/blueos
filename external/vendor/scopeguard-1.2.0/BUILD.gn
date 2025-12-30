@@ -23,6 +23,7 @@ cargo_crate("scopeguard") {
   sources = [ "//external/vendor/scopeguard-1.2.0/src/lib.rs" ]
   inputs = []
   edition = "2015"
+
   cargo_pkg_name = "scopeguard"
   cargo_pkg_version = "1.2.0"
 

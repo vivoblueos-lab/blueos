@@ -23,6 +23,7 @@ cargo_crate("stable_deref_trait") {
   sources = [ "//external/vendor/stable_deref_trait-1.2.1/src/lib.rs" ]
   inputs = []
   edition = "2015"
+
   cargo_pkg_name = "stable_deref_trait"
   cargo_pkg_version = "1.2.1"
 

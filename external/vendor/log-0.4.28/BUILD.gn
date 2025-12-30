@@ -23,6 +23,7 @@ cargo_crate("log") {
   sources = [ "//external/vendor/log-0.4.28/src/lib.rs" ]
   inputs = []
   edition = "2021"
+
   cargo_pkg_name = "log"
   cargo_pkg_version = "0.4.28"
 

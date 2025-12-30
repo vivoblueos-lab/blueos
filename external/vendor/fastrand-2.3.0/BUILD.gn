@@ -23,6 +23,7 @@ cargo_crate("fastrand") {
   sources = [ "//external/vendor/fastrand-2.3.0/src/lib.rs" ]
   inputs = []
   edition = "2018"
+
   cargo_pkg_name = "fastrand"
   cargo_pkg_version = "2.3.0"
 

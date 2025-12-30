@@ -27,6 +27,7 @@ cargo_crate("defmt_rtt") {
     "//external/vendor/critical-section-1.2.0:critical_section",
     "//external/vendor/defmt-1.0.1:defmt",
   ]
+
   cargo_pkg_name = "defmt-rtt"
   cargo_pkg_version = "1.1.0"
   build_root = "//external/vendor/defmt-rtt-1.1.0/build.rs"

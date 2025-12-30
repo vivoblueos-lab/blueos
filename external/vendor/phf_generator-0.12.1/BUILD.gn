@@ -27,6 +27,7 @@ cargo_crate("phf_generator") {
     "//external/vendor/fastrand-2.3.0:fastrand",
     "//external/vendor/phf_shared-0.12.1:phf_shared",
   ]
+
   cargo_pkg_name = "phf_generator"
   cargo_pkg_version = "0.12.1"
 

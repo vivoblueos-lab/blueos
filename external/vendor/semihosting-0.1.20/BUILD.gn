@@ -28,6 +28,7 @@ cargo_crate("semihosting") {
     "fs",
     "stdio",
   ]
+
   cargo_pkg_name = "semihosting"
   cargo_pkg_version = "0.1.20"
   build_root = "//external/vendor/semihosting-0.1.20/build.rs"

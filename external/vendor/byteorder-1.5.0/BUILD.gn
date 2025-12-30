@@ -23,6 +23,7 @@ cargo_crate("byteorder") {
   sources = [ "//external/vendor/byteorder-1.5.0/src/lib.rs" ]
   inputs = []
   edition = "2021"
+
   cargo_pkg_name = "byteorder"
   cargo_pkg_version = "1.5.0"
 

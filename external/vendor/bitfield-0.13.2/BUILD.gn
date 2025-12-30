@@ -23,6 +23,7 @@ cargo_crate("bitfield") {
   sources = [ "//external/vendor/bitfield-0.13.2/src/lib.rs" ]
   inputs = []
   edition = "2015"
+
   cargo_pkg_name = "bitfield"
   cargo_pkg_version = "0.13.2"
 

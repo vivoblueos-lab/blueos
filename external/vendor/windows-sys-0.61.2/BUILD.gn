@@ -33,6 +33,7 @@ cargo_crate("windows_sys") {
     "Win32_System_Console",
     "Win32_System_SystemInformation",
   ]
+
   cargo_pkg_name = "windows-sys"
   cargo_pkg_version = "0.61.2"
 

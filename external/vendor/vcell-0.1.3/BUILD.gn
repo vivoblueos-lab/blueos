@@ -23,6 +23,7 @@ cargo_crate("vcell") {
   sources = [ "//external/vendor/vcell-0.1.3/src/lib.rs" ]
   inputs = []
   edition = "2015"
+
   cargo_pkg_name = "vcell"
   cargo_pkg_version = "0.1.3"
 
