@@ -24,7 +24,7 @@ build_rust("ftp") {
   deps = [
     "//external/vendor/log-0.4.28:log",
     "//kernel/rsrt:rsrt_std",
-    "//librs:librs",
+    "//librs",
   ]
   features = [
     "debug_print",
@@ -44,7 +44,7 @@ build_rust("example_connecting") {
     ":ftp",
     "//external/vendor/log-0.4.28:log",
     "//kernel/rsrt:rsrt_std",
-    "//librs:librs",
+    "//librs",
   ]
   features = [
     "debug_print",
