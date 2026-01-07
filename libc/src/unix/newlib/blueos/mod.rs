@@ -123,6 +123,116 @@ s! {
         pub __librs_internal_align: [::c_int; 0],
     }
 }
+// For ioctl libcall.
+pub const TCGETS: ::c_ulong = 0x5401;
+pub const TCSETS: ::c_ulong = 0x5402;
+pub const TCSETSW: ::c_ulong = 0x5403;
+pub const TCSETSF: ::c_ulong = 0x5404;
+pub const TCFLSH: ::c_ulong = 0x540B;
+pub const TCSBRK: ::c_ulong = 0x5409;
+pub const TCXONC: ::c_ulong = 0x540A;
+
+/// https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/termios.h.html
+/// these constants should same with termios definition in blueos
+pub const TCSANOW: ::c_int = 0;
+pub const TCSADRAIN: ::c_int = 0x1;
+pub const TCSAFLUSH: ::c_int = 0x2;
+
+pub const TCOOFF: ::c_int = 0;
+pub const TCOON: ::c_int = 1;
+pub const TCIOFF: ::c_int = 2;
+pub const TCION: ::c_int = 3;
+
+pub const TCIFLUSH: ::c_int = 0;
+pub const TCOFLUSH: ::c_int = 1;
+pub const TCIOFLUSH: ::c_int = 2;
+pub const IGNBRK: ::c_uint = 0x00000001;
+pub const BRKINT: ::c_uint = 0x00000002;
+pub const IGNPAR: ::c_uint = 0x00000004;
+pub const PARMRK: ::c_uint = 0x00000008;
+pub const INPCK: ::c_uint = 0x00000010;
+pub const ISTRIP: ::c_uint = 0x00000020;
+pub const INLCR: ::c_uint = 0x00000040;
+pub const IGNCR: ::c_uint = 0x00000080;
+pub const ICRNL: ::c_uint = 0x00000100;
+pub const IXANY: ::c_uint = 0x00000800;
+pub const IMAXBEL: ::c_uint = 0x00002000;
+pub const IXON: ::c_uint = 0x00000400;
+pub const IXOFF: ::c_uint = 0x00001000;
+pub const ECHO: ::c_uint = 0x00000008;
+pub const ECHOKE: ::c_uint = 0x00000800;
+pub const ECHOE: ::c_uint = 0x00000010;
+pub const ECHOK: ::c_uint = 0x00000020;
+pub const ECHONL: ::c_uint = 0x00000040;
+pub const ECHOPRT: ::c_uint = 0x00000400;
+pub const ECHOCTL: ::c_uint = 0x00000200;
+pub const ISIG: ::c_uint = 0x00000001;
+pub const ICANON: ::c_uint = 0x00000002;
+pub const IEXTEN: ::c_uint = 0x00008000;
+pub const NOFLSH: ::c_uint = 0x00000080;
+pub const TOSTOP: ::c_uint = 0x00000100;
+pub const CSIZE: ::c_uint = 0x300;
+pub const CS6: ::c_uint = 0x100;
+pub const CS7: ::c_uint = 0x200;
+pub const CS8: ::c_uint = 0x300;
+pub const CSTOPB: ::c_uint = 0x400;
+pub const CREAD: ::c_uint = 0x800;
+pub const PARENB: ::c_uint = 0x1000;
+pub const PARODD: ::c_uint = 0x2000;
+pub const HUPCL: ::c_uint = 0x4000;
+
+pub const B0: ::c_uint = 0o000000;
+pub const B50: ::c_uint = 0o000001;
+pub const B75: ::c_uint = 0o000002;
+pub const B110: ::c_uint = 0o000003;
+pub const B134: ::c_uint = 0o000004;
+pub const B150: ::c_uint = 0o000005;
+pub const B200: ::c_uint = 0o000006;
+pub const B300: ::c_uint = 0o000007;
+pub const B600: ::c_uint = 0o000010;
+pub const B1200: ::c_uint = 0o000011;
+pub const B1800: ::c_uint = 0o000012;
+pub const B2400: ::c_uint = 0o000013;
+pub const B4800: ::c_uint = 0o000014;
+pub const B9600: ::c_uint = 0o000015;
+pub const B19200: ::c_uint = 0o000016;
+pub const B38400: ::c_uint = 0o000017;
+pub const B57600: ::c_uint = 0o010001;
+pub const B115200: ::c_uint = 0o010002;
+pub const B230400: ::c_uint = 0o010003;
+pub const B460800: ::c_uint = 0o010004;
+pub const B500000: ::c_uint = 0o010005;
+pub const B576000: ::c_uint = 0o010006;
+pub const B921600: ::c_uint = 0o010007;
+pub const B1000000: ::c_uint = 0o010010;
+pub const B1152000: ::c_uint = 0o010011;
+pub const B1500000: ::c_uint = 0o010012;
+pub const B2000000: ::c_uint = 0o010013;
+pub const B2500000: ::c_uint = 0o010014;
+pub const B3000000: ::c_uint = 0o010015;
+pub const B3500000: ::c_uint = 0o010016;
+pub const B4000000: ::c_uint = 0o010017;
+
+pub const OPOST: ::c_uint = 0x01;
+pub const ONLCR: ::c_uint = 0x04;
+pub const OCRNL: ::c_uint = 0x08;
+pub const ONOCR: ::c_uint = 0x10;
+pub const ONLRET: ::c_uint = 0x20;
+pub const OFILL: ::c_uint = 0x40;
+pub const OFDEL: ::c_uint = 0x80;
+
+pub const VINTR: usize = 0;
+pub const VQUIT: usize = 1;
+pub const VERASE: usize = 2;
+pub const VKILL: usize = 3;
+pub const VEOF: usize = 4;
+pub const VTIME: usize = 5;
+pub const VMIN: usize = 6;
+pub const VSWTC: usize = 7;
+pub const VSTART: usize = 8;
+pub const VSTOP: usize = 9;
+pub const VSUSP: usize = 10;
+pub const VEOL: usize = 11;
 
 /// https://pubs.opengroup.org/onlinepubs/9799919799/basedefs/sys_socket.h.html
 pub const AF_UNIX: ::c_int = 1;
