@@ -146,7 +146,7 @@ void  tm_interrupt_preemption_thread_1_entry(void)
 /* Define the interrupt handler.  This must be called from the RTOS trap handler.
    To be fair, it must behave just like a processor interrupt, i.e. it must save
    the full context of the interrupted thread during the preemption processing. */
-void  tm_interrupt_preemption_handler(void)
+void  tm_interrupt_handler(void)
 {
 
     /* Increment the interrupt count.  */

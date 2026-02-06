@@ -39,7 +39,9 @@ SVC_Handler:
    Again, this is very processor/tool specific so changes are likely needed for non Cortex-M/IAR
    environments.  */
 
-#define TM_CAUSE_INTERRUPT    asm("SVC #0");
+extern void tm_cause_interrupt();
+
+#define TM_CAUSE_INTERRUPT    tm_cause_interrupt();
 
 
 
