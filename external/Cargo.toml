@@ -113,3 +113,10 @@ version = "0.9.1"
 features = [
     "gd32e507",
 ]
+
+[dependencies.unwinding]
+version = "=0.2.4"
+default-features = false
+features = [
+    "unwinder"
+]
