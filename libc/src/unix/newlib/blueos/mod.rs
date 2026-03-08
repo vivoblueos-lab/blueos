@@ -7,11 +7,30 @@ pub type c_long = i32;
 pub type c_ulong = u32;
 
 pub type sigset_t = ::c_ulong;
+pub type timer_t = ::c_int;
 
 s! {
     pub struct timespec {
         pub tv_sec: ::time_t,
         pub tv_nsec: ::c_long,
+    }
+
+    pub struct itimerspec {
+        pub it_interval: ::timespec,
+        pub it_value: ::timespec,
+    }
+    // reuse linux sigevent definition
+    pub struct sigevent {
+        pub sigev_value: ::sigval,
+        pub sigev_signo: ::c_int,
+        pub sigev_notify: ::c_int,
+        // Actually a union.  We only expose sigev_notify_thread_id because it's
+        // the most useful member
+        pub sigev_notify_thread_id: ::c_int,
+        #[cfg(target_pointer_width = "64")]
+        __unused1: [::c_int; 11],
+        #[cfg(target_pointer_width = "32")]
+        __unused1: [::c_int; 12]
     }
 
     pub struct dirent {
