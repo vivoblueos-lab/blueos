@@ -2,7 +2,7 @@
 
 We recommend you developing the kernel in Debian-12.0+ or Ubuntu-24.04+ environment to get the best tooling support.
 
-## Prepare basic developement environment
+## Prepare basic development environment
 ### `repo`
 We are using [repo](https://source.android.com/docs/setup/reference/repo) to manage the kernel project.
 Please follow https://mirrors.tuna.tsinghua.edu.cn/help/git-repo/ to install `repo`.

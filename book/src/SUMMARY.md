@@ -23,4 +23,4 @@
 ---
 
 # Contributing
-* [Sumbit pull requests](./prs.md)
+* [Submit pull requests](./prs.md)
