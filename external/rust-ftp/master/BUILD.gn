@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import("//build/boards/${board}.gni")
 import("//build/templates/build_template.gni")
 import("//build/templates/rust.gni")
 import("//build/toolchain/blueos.gni")
@@ -50,5 +51,6 @@ build_rust("example_connecting") {
     "debug_print",
     "log",
   ]
+  linker_script = default_linker_script
   configs += [ "//build/boards/${board}:kernel_config" ]
 }
