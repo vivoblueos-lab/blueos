@@ -38,7 +38,8 @@ s! {
         pub d_off: ::off_t,
         pub d_reclen: ::c_ushort,
         pub d_type: ::c_uchar,
-        pub d_name: [::c_char; 0],
+        pub d_namlen: ::c_ushort,
+        pub d_name: [::c_char; 256],
     }
 
     pub struct msghdr {
@@ -103,15 +104,13 @@ s! {
         pub st_gid: ::gid_t,
         pub st_rdev: ::dev_t,
         pub st_size: ::off_t,
-        pub st_atime: ::time_t,
-        pub st_atime_nsec: ::c_long,
-        pub st_mtime: ::time_t,
-        pub st_mtime_nsec: ::c_long,
-        pub st_ctime: ::time_t,
-        pub st_ctime_nsec: ::c_long,
+        __st_size_padding: ::c_int,
+        pub st_atim: ::timespec,
+        pub st_mtim: ::timespec,
+        pub st_ctim: ::timespec,
         pub st_blksize: ::blksize_t,
         pub st_blocks: ::blkcnt_t,
-        pub st_spare4: [::c_long; 2usize],
+        __st_spare: [::c_int; 2usize],
     }
 
     pub struct statfs {
