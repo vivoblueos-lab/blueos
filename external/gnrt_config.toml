@@ -157,3 +157,78 @@ license_files = ["../../LICENSE-MIT"]
 
 [crate.cortex-m-semihosting]
 license_files = ["LICENSE-MIT"]
+
+[crate.esp-radio-rtos-driver]
+license_files = ["LICENSE-MIT"]
+
+[crate.esp-wifi-sys-esp32c3]
+license_files = ["LICENSE-MIT"]
+
+[crate.esp-metadata-generated]
+license_files = ["LICENSE-MIT"]
+
+[crate.esp-sync]
+license_files = ["LICENSE-MIT"]
+
+[crate.embassy-sync]
+license_files = ["LICENSE-MIT"]
+
+[crate.riscv]
+license_files = ["LICENSE-MIT"]
+
+[crate.riscv-macros]
+license_files = ["LICENSE-MIT"]
+
+[crate.riscv-pac]
+license_files = ["LICENSE-MIT"]
+
+[crate.rlsf]
+license_files = ["LICENSE-MIT"]
+
+[crate.bitfield-macros]
+license_files = ["LICENSE-MIT"]
+
+[crate.docsplay-macros]
+license_files = ["LICENSE-MIT"]
+
+[crate.embassy-futures]
+license_files = ["LICENSE-MIT"]
+
+[crate.esp-alloc]
+license_files = ["LICENSE-MIT"]
+
+[crate.esp-config]
+license_files = ["LICENSE-MIT"]
+
+[crate.esp-hal]
+license_files = ["LICENSE-MIT"]
+
+[crate.esp-hal-procmacros]
+license_files = ["LICENSE-MIT"]
+
+[crate.esp-phy]
+license_files = ["LICENSE-MIT"]
+
+[crate.esp-radio]
+license_files = ["LICENSE-MIT"]
+
+[crate.esp-rom-sys]
+license_files = ["LICENSE-MIT"]
+
+[crate.portable_atomic_enum]
+license_files = ["LICENSE-MIT"]
+
+[crate.portable_atomic_enum_macros]
+license_files = ["LICENSE-MIT"]
+
+[crate.windows-link]
+license_files = ["LICENSE-MIT"]
+
+[crate.windows-sys]
+license_files = ["LICENSE-MIT"]
+
+[crate.esp32c3]
+license_files = ["LICENSE-MIT", "LICENSE-Apache-2.0"]
+
+[crate.xtensa-lx]
+license_files = ["LICENSE-MIT"]

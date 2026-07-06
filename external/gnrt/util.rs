@@ -219,20 +219,24 @@ pub fn run_cargo_metadata(
     log::debug!("invoking cargo with:\n`{:?}`", command.cargo_command());
 
     // Try to run cargo metadata, and if it fails with edition2024 error, retry after fixing
-    match command.exec() {
-        Ok(metadata) => Ok(metadata),
-        Err(e) => {
-            let error_msg = e.to_string();
-            if error_msg.contains("edition2024") || error_msg.contains("edition `2024`") {
-                log::warn!("Detected edition2024 error, fixing cargo cache and retrying...");
-                fix_edition_in_cargo_cache().context("fixing cargo cache")?;
-                // Retry after fixing
-                command.exec().context("running cargo metadata after fix")
-            } else {
-                Err(e).context("running cargo metadata")
+    let max_retries = 5;
+    for attempt in 0..max_retries {
+        match command.exec() {
+            Ok(metadata) => return Ok(metadata),
+            Err(e) => {
+                let error_msg = e.to_string();
+                if error_msg.contains("edition2024") || error_msg.contains("edition `2024`") {
+                    log::warn!("Detected edition2024 error (attempt {}/{}), fixing cargo cache and retrying...", attempt + 1, max_retries);
+                    fix_edition_in_cargo_cache().context("fixing cargo cache")?;
+                    // Continue to retry
+                } else {
+                    return Err(e).context("running cargo metadata");
+                }
             }
         }
     }
+    // If we exhausted retries and still fail, try one more time and propagate the error
+    command.exec().context("running cargo metadata after fix")
 }
 
 /// Run a cargo command, other than metadata which should use
