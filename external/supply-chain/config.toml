@@ -168,6 +168,7 @@ criteria = ["crypto-safe", "safe-to-deploy", "ub-risk-2"]
 criteria = ["crypto-safe", "safe-to-deploy", "ub-risk-2"]
 
 [policy."embedded-hal-async:1.0.0"]
+[policy."embedded-hal-bus:0.3.0"]
 criteria = ["crypto-safe", "safe-to-deploy", "ub-risk-2"]
 
 [policy."embedded-hal:0.2.7"]
