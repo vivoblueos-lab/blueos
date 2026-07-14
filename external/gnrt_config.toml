@@ -232,3 +232,6 @@ license_files = ["LICENSE-MIT", "LICENSE-Apache-2.0"]
 
 [crate.xtensa-lx]
 license_files = ["LICENSE-MIT"]
+
+[crate.embedded-graphics-core]
+license_files = ["README.md"]
