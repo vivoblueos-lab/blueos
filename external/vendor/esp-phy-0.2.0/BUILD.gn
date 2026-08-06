@@ -44,7 +44,10 @@ cargo_crate("esp_phy") {
   cargo_pkg_version = "0.2.0"
   build_root = "//external/vendor/esp-phy-0.2.0/build.rs"
   build_sources = [ "//external/vendor/esp-phy-0.2.0/build.rs" ]
-  build_script_outputs = [ "esp_phy_config_table.md" ]
+  build_script_outputs = [
+    "esp_phy_config_table.md",
+    "libesp-phy.a",
+  ]
 
   rustflags = [
     "--cap-lints=allow",  # Suppress all warnings in crates.io crates

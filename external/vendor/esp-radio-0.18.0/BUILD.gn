@@ -64,7 +64,10 @@ cargo_crate("esp_radio") {
   cargo_pkg_version = "0.18.0"
   build_root = "//external/vendor/esp-radio-0.18.0/build.rs"
   build_sources = [ "//external/vendor/esp-radio-0.18.0/build.rs" ]
-  build_script_outputs = [ "esp_radio_config_table.md" ]
+  build_script_outputs = [
+    "esp_radio_config_table.md",
+    "libesp-radio.a",
+  ]
 
   rustflags = [
     "--cap-lints=allow",  # Suppress all warnings in crates.io crates
