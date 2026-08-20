@@ -30,6 +30,8 @@ zerocopy = "0.8.25"
 defmt-rtt = "1.0.0"
 defmt-test = "0.4.0"
 bme280 = "0.5.1"
+embedded-tls = "0.16.3"
+ft6336u-driver = "1.0.0"
 
 [dependencies.esp-radio]
 version = "0.18.0"

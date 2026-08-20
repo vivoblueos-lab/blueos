@@ -23,6 +23,7 @@ cargo_crate("indoc") {
   sources = [ "//external/vendor/indoc-2.0.7/src/lib.rs" ]
   inputs = []
   edition = "2021"
+  build_deps = [ "//external/vendor/rustversion-1.0.22:rustversion" ]
 
   cargo_pkg_name = "indoc"
   cargo_pkg_version = "2.0.7"

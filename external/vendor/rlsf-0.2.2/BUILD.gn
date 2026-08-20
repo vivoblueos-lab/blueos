@@ -26,8 +26,8 @@ cargo_crate("rlsf") {
   deps = [
     "//external/vendor/cfg-if-1.0.4:cfg_if",
     "//external/vendor/const-default-1.0.0:const_default",
-    "//external/vendor/libc-0.2.186:libc",
   ]
+  deps = [ "//external/vendor/libc-0.2.186:libc" ]
   proc_macro_deps = [
     "//external/vendor/rustversion-1.0.22:rustversion",
     "//external/vendor/svgbobdoc-0.3.0:svgbobdoc",

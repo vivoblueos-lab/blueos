@@ -35,8 +35,6 @@ cargo_crate("esp_radio") {
     "//external/vendor/esp-phy-0.2.0:esp_phy",
     "//external/vendor/esp-radio-rtos-driver-0.3.0:esp_radio_rtos_driver",
     "//external/vendor/esp-sync-0.2.1:esp_sync",
-    "//external/vendor/esp-wifi-sys-esp32c3-0.2.0:esp_wifi_sys_esp32c3",
-    "//external/vendor/esp32c3-0.32.2:esp32c3",
     "//external/vendor/heapless-0.9.3:heapless",
     "//external/vendor/num-traits-0.2.19:num_traits",
     "//external/vendor/portable-atomic-1.13.1:portable_atomic",
@@ -52,10 +50,7 @@ cargo_crate("esp_radio") {
     "//external/vendor/instability-0.3.12:instability",
     "//external/vendor/num-derive-0.4.2:num_derive",
   ]
-  features = [
-    "esp32c3",
-    "wifi",
-  ]
+  features = [ "esp-alloc" ]
   aliased_deps = {
     procmacros = "//external/vendor/esp-hal-procmacros-0.22.0:esp_hal_procmacros(//build/toolchain:host)"
   }
@@ -64,10 +59,6 @@ cargo_crate("esp_radio") {
   cargo_pkg_version = "0.18.0"
   build_root = "//external/vendor/esp-radio-0.18.0/build.rs"
   build_sources = [ "//external/vendor/esp-radio-0.18.0/build.rs" ]
-  build_script_outputs = [
-    "esp_radio_config_table.md",
-    "libesp-radio.a",
-  ]
 
   rustflags = [
     "--cap-lints=allow",  # Suppress all warnings in crates.io crates
