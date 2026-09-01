@@ -16,12 +16,12 @@ concurrency:
 jobs:
   pull:
     if: github.repository == 'vivoblueos-lab/apps_shell'
-    uses: vivoblueos-lab/josh-sync/.github/workflows/blueos-pull.yml@1f362a3b973f9506e3ecbec9ed9f1ab5a87ce591
+    uses: vivoblueos-lab/josh-sync/.github/workflows/blueos-pull.yml@54c24480aa737d11948d2d91f9308d8dab85b204
     with:
       github-app-id: ${{ vars.APP_CLIENT_ID }}
       pr-author: "blue-josh-sync[bot]"
       josh-sync-repository: vivoblueos-lab/josh-sync
-      josh-sync-revision: 1f362a3b973f9506e3ecbec9ed9f1ab5a87ce591
+      josh-sync-revision: 54c24480aa737d11948d2d91f9308d8dab85b204
       branch-name: blueos-pull
       pr-base-branch: main
     secrets:
