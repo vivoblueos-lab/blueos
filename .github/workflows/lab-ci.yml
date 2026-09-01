@@ -1,0 +1,49 @@
+name: Lab CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate imported subtrees
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Validate required subtree paths
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          dirs=(
+            "kernel"
+            "apps/shell"
+            "libc"
+          )
+
+          files=(
+            "kernel/josh-sync.toml"
+            "apps/shell/josh-sync.toml"
+            "libc/josh-sync.toml"
+          )
+
+          for dir in "${dirs[@]}"; do
+            if [[ ! -d "$dir" ]]; then
+              echo "::error title=Missing subtree::Missing required directory: $dir"
+              exit 1
+            fi
+          done
+
+          for file in "${files[@]}"; do
+            if [[ ! -s "$file" ]]; then
+              echo "::error title=Missing config::Missing or empty file: $file"
+              exit 1
+            fi
+          done
+
+          echo "All required subtree paths are present."
