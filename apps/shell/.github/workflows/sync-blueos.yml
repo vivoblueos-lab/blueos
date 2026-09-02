@@ -1,0 +1,28 @@
+name: Sync BlueOS
+
+on:
+  schedule:
+    - cron: "23 2 * * 1,4"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: blueos-pull
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    if: github.repository == 'vivoblueos-lab/apps_shell'
+    uses: vivoblueos-lab/josh-sync/.github/workflows/blueos-pull.yml@54c24480aa737d11948d2d91f9308d8dab85b204
+    with:
+      github-app-id: ${{ vars.APP_CLIENT_ID }}
+      pr-author: "blue-josh-sync[bot]"
+      josh-sync-repository: vivoblueos-lab/josh-sync
+      josh-sync-revision: 54c24480aa737d11948d2d91f9308d8dab85b204
+      branch-name: blueos-pull
+      pr-base-branch: main
+    secrets:
+      github-app-secret: ${{ secrets.APP_PRIVATE_KEY }}
