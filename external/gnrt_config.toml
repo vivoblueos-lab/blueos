@@ -164,6 +164,10 @@ license_files = ["LICENSE-MIT"]
 [crate.esp-wifi-sys-esp32c3]
 license_files = ["LICENSE-MIT"]
 
+# C6 WiFi driver FFI crate; license files match C3 (MIT).
+[crate.esp-wifi-sys-esp32c6]
+license_files = ["LICENSE-MIT"]
+
 [crate.esp-metadata-generated]
 license_files = ["LICENSE-MIT"]
 
@@ -228,6 +232,10 @@ license_files = ["LICENSE-MIT"]
 license_files = ["LICENSE-MIT"]
 
 [crate.esp32c3]
+license_files = ["LICENSE-MIT", "LICENSE-Apache-2.0"]
+
+# C6 PAC crate; license files match C3 (MIT + Apache-2.0).
+[crate.esp32c6]
 license_files = ["LICENSE-MIT", "LICENSE-Apache-2.0"]
 
 [crate.xtensa-lx]

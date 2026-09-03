@@ -45,8 +45,21 @@ version = "0.4.0"
 [dependencies.esp-wifi-sys-esp32c3]
 version = "0.2.0"
 
+# C6 WiFi/Bluetooth low-level driver FFI bindings (the C6 counterpart of C3's
+# esp-wifi-sys-esp32c3). Version 0.2.0 cross-verified against both
+# esp-phy-0.2.0/Cargo.toml and esp-radio-0.18.0/Cargo.toml.
+[dependencies.esp-wifi-sys-esp32c6]
+version = "0.2.0"
+
 [dependencies.esp32c3]
 version = "0.32"
+features = ["critical-section"]
+
+# C6 PAC (the C6 counterpart of C3's esp32c3 0.32). Version 0.23 verified against
+# the esp-phy/esp-radio Cargo.toml. The critical-section feature is aligned with
+# C3 (esp-hal relies on it for cross-core critical sections).
+[dependencies.esp32c6]
+version = "0.23"
 features = ["critical-section"]
 
 [dependencies.esp-radio-rtos-driver]

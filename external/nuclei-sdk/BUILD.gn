@@ -1,4 +1,5 @@
 import("//build/templates/build_template.gni")
+
 static_library("nuclei-sdk") {
   sources = [
     "src/gd32vw55x_adc.c",

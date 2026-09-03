@@ -1,4 +1,5 @@
 import("//build/templates/build_template.gni")
+
 build_rust("fatfs") {
   crate_type = "rlib"
   sources = [ "src/lib.rs" ]

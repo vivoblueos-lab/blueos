@@ -23,10 +23,29 @@ cargo_crate("embedded_io") {
   sources = [ "//external/vendor/embedded-io-0.6.1/src/lib.rs" ]
   inputs = []
   edition = "2021"
+  features = [ "alloc" ]
 
   cargo_pkg_name = "embedded-io"
   cargo_pkg_version = "0.6.1"
 
+  rustflags = [
+    "--cap-lints=allow",  # Suppress all warnings in crates.io crates
+  ]
+}
+
+cargo_crate("embedded_io_std") {
+  crate_name = "embedded_io"
+  epoch = "0.6std"
+  crate_type = "rlib"
+  sources = [ "//external/vendor/embedded-io-0.6.1/src/lib.rs" ]
+  inputs = []
+  edition = "2021"
+  features = [
+    "alloc",
+    "std",
+  ]
+  cargo_pkg_name = "embedded-io"
+  cargo_pkg_version = "0.6.1"
   rustflags = [
     "--cap-lints=allow",  # Suppress all warnings in crates.io crates
   ]

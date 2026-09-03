@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# @generated from external/BLUE_BUILD.gn.hbs by gnrt
-# Do not edit!
-
 import("//build/templates/cargo_crate.gni")
 
 cargo_crate("esp_metadata_generated") {
@@ -23,10 +20,18 @@ cargo_crate("esp_metadata_generated") {
   sources = [ "//external/vendor/esp-metadata-generated-0.4.0/src/lib.rs" ]
   inputs = []
   edition = "2021"
-  features = [
-    "build-script",
-    "esp32c3",
-  ]
+
+  if (board == "esp32c6_devkitc_1") {
+    features = [
+      "build-script",
+      "esp32c6",
+    ]
+  } else {
+    features = [
+      "build-script",
+      "esp32c3",
+    ]
+  }
 
   cargo_pkg_name = "esp-metadata-generated"
   cargo_pkg_version = "0.4.0"

@@ -35,7 +35,12 @@ cargo_crate("esp_sync") {
   ]
   proc_macro_deps =
       [ "//external/vendor/document-features-0.2.12:document_features" ]
-  features = [ "esp32c3" ]
+
+  if (board == "esp32c6_devkitc_1") {
+    features = [ "esp32c6" ]
+  } else {
+    features = [ "esp32c3" ]
+  }
   aliased_deps = {
     embassy_sync_06 = "//external/vendor/embassy-sync-0.6.2:embassy_sync"
     embassy_sync_07 = "//external/vendor/embassy-sync-0.7.2:embassy_sync"

@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# @generated from external/BLUE_BUILD.gn.hbs by gnrt
-# Do not edit!
-
 import("//build/templates/cargo_crate.gni")
 
 cargo_crate("esp_radio_rtos_driver") {
@@ -29,10 +26,17 @@ cargo_crate("esp_radio_rtos_driver") {
     "//external/vendor/portable-atomic-1.13.1:portable_atomic",
   ]
 
-  features = [
-    "esp32c3",
-    "ipc-implementations",
-  ]
+  if (board == "esp32c6_devkitc_1") {
+    features = [
+      "esp32c6",
+      "ipc-implementations",
+    ]
+  } else {
+    features = [
+      "esp32c3",
+      "ipc-implementations",
+    ]
+  }
 
   cargo_pkg_name = "esp-radio-rtos-driver"
   cargo_pkg_version = "0.3.0"
