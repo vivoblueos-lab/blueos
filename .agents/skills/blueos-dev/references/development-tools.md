@@ -46,4 +46,4 @@ Read `book/src/third-party.md`. Edit `external/Cargo.toml`, then regenerate GN m
 ninja -C <generated-out> run_gnrt
 ```
 
-Review generated changes in the `external` Git project, add the generated `//external/vendor/<crate-version>:<target>` label to the consumer `BUILD.gn`, and validate both repositories. Dependency resolution can require network access.
+Review generated changes under `external/`, add the generated `//external/vendor/<crate-version>:<target>` label to the consumer `BUILD.gn`, and validate the affected targets. Dependency resolution can require network access.

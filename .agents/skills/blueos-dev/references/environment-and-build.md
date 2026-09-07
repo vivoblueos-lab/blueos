@@ -25,20 +25,21 @@ If the shell hook did not load `.envrc`, use `direnv exec . <command>` for one c
 
 For a new machine or missing tools, read `book/src/getting-started.md`. Read `book/src/build-rust-toolchain.md` only when the custom Rust toolchain must be built. The installed versions may differ from the documentation, so verify the active binaries.
 
-## Initialize and Sync
+## Clone and Update
 
 Run these only when requested because they use the network and update checkout state:
 
 ```bash
-repo init -u https://github.com/vivoblueos/manifests.git -b main -m manifest.xml
-repo sync -j<N>
+git clone https://github.com/vivoblueos-lab/blueos.git blueos-dev
+git -C blueos-dev status --short --branch
+git -C blueos-dev pull --ff-only
 ```
 
-Use the SSH manifest URL when the user has configured GitHub SSH access.
+Use the SSH URL `git@github.com:vivoblueos-lab/blueos.git` when the user has configured GitHub SSH access.
 
-## Repository Ownership and Status
+## Repository Status
 
-The current manifest has these separate Git projects:
+The centralized repository contains these top-level areas:
 
 - `apps/example`
 - `apps/shell`
@@ -49,15 +50,15 @@ The current manifest has these separate Git projects:
 - `libc`
 - `librs`
 
-`apps/` is only a container. Use:
+`apps/` is only a directory container. Use:
 
 ```bash
-repo list
-repo status -j1
-git -C kernel status --short
+git status --short --branch
+git remote -v
+git branch -vv
 ```
 
-Prefer `repo status -j1` in constrained environments because the default parallel form can fail when process creation is restricted.
+The upstream remote is `https://github.com/vivoblueos-lab/blueos.git`, and the default branch is `main`. Top-level project directories no longer have independent `.git` directories.
 
 ## Generate and Build
 

@@ -1,32 +1,23 @@
 # Contribution Workflow
 
-Repo-managed projects may start on detached HEAD. Create a branch in every changed project before committing:
+Check the current state first. If the checkout is detached, create or select a branch before committing:
 
 ```bash
-repo start <branch> <project...>
+git status --short --branch
+git switch -c <branch>
 ```
 
-Or create branches per project:
+Before committing, summarize and validate the changes:
+
+Commit and publish only when explicitly requested:
 
 ```bash
-git -C kernel switch -c <branch>
+git diff --check
+git diff
+git commit
+git push <remote> <branch>
 ```
 
-Before committing, summarize and validate each repository independently:
+Prepare one pull request from the feature branch to `main` in `vivoblueos-lab/blueos`. Do not create separate pull requests for top-level areas such as `kernel` or `build`. Read `book/src/prs.md` only for historical context until the centralized contribution documentation is updated.
 
-```bash
-git -C kernel status --short
-git -C kernel diff --check
-git -C kernel diff
-```
-
-Keep commits and PRs separated by manifest project. Commit and publish only when explicitly requested:
-
-```bash
-git -C kernel commit
-git -C kernel push <user-remote> <branch>
-```
-
-For changes spanning repositories, read `book/src/prs.md`, create one PR per repository, and use `build_prs <url...>` only after the user authorizes posting that CI-trigger comment.
-
-The handoff must state which repositories changed, checks run per repository, outstanding failures, and any PR or CI coordination still required.
+The handoff must state the branch and remote, changed paths, checks run, outstanding failures, and any pull-request or CI coordination still required.

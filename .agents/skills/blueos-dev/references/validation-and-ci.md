@@ -74,18 +74,17 @@ For shared code sensitive to word size, endianness, architecture, linker, atomic
 
 `build/ci/run_ci.py` invokes format and license stages, then runs `gn gen`, `default`, and `check_all`. It always tests both `direct_syscall_handler=true` and `false`, creating `.dsc` and `.swi` outputs.
 
-Pass repository paths when format and license validation is intended. With no positional paths, the current implementation checks an empty repository list:
+Pass the repository root when format and license validation is intended. With no positional paths, the current implementation checks an empty list:
 
 ```bash
-python3 build/ci/run_ci.py --board qemu_mps2_an385 --build_type debug kernel
-python3 build/ci/run_ci.py --board qemu_mps2_an385 --build_type debug kernel build
+python3 build/ci/run_ci.py --board qemu_mps2_an385 --build_type debug .
 ```
 
 The format stage fetches the configured upstream branch before diffing, so it needs network access and updates remote-tracking refs. Omitting `--board` or `--build_type` expands the matrix. `--setup_only` generates output directories without building them.
 
 ## Formatting and License
 
-Run checks from each changed Git project:
+Run checks from the repository root for changed files:
 
 ```bash
 rustfmt --edition=2021 --check --unstable-features --skip-children <changed-rust-files>
@@ -104,8 +103,8 @@ License rules are repository-specific. Run `license-eye` where `.licenserc.yaml`
 Record the exact command, output directory, `args.gn`, target, and first actionable diagnostic. Inspect the worktree and baseline without changing user state:
 
 ```bash
-git -C kernel diff -- infra/src/tinyrwlock.rs
-git -C kernel show HEAD:infra/src/tinyrwlock.rs | sed -n '<start>,<end>p'
+git diff -- kernel/infra/src/tinyrwlock.rs
+git show HEAD:kernel/infra/src/tinyrwlock.rs | sed -n '<start>,<end>p'
 ```
 
 If the failing line and condition exist at `HEAD` and the change does not affect them, report both facts: the command failed, and the evidence attributes it to baseline. When an executable baseline is necessary, prefer a separate worktree or checkout. Do not stash user changes merely for comparison. Prefer a fresh named output directory over deleting an existing one when stale output is supported by evidence.
