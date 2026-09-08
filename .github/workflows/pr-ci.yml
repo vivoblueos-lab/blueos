@@ -83,10 +83,28 @@ jobs:
             --board "$BOARD" \
             --build-type "$BUILD_TYPE" \
             --syscall-mode "$SYSCALL_MODE"
+  miri:
+    name: allocator Miri
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/vivoblueos/kernel:latest
+    steps:
+      - name: Check out pull request
+        uses: actions/checkout@v4
+      - name: Check allocator with Miri Tree Borrows
+        env:
+          MIRI_PATH: /opt/sysroot/usr/local/bin/miri
+          MIRI_SYSROOT: /opt/sysroot/usr/local/lib/rustlib/x86_64-unknown-linux-gnu/miri-sysroot
+        run: |
+          gn gen out/qemu_mps2_an385.debug.miri \
+            --args="board=\"qemu_mps2_an385\" build_type=\"debug\" miri_path=\"$MIRI_PATH\" miri_sysroot=\"$MIRI_SYSROOT\""
+          ninja -C out/qemu_mps2_an385.debug.miri \
+            kernel/allocator:check_allocator_by_miri
   gate:
     name: gate
     if: ${{ always() && !github.event.pull_request.draft }}
-    needs: [static-checks, build]
+    needs: [static-checks, build, miri]
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions: {}
@@ -95,9 +113,13 @@ jobs:
         env:
           STATIC_CHECKS_RESULT: ${{ needs.static-checks.result }}
           BUILD_RESULT: ${{ needs.build.result }}
+          MIRI_RESULT: ${{ needs.miri.result }}
         run: |
-          if [[ "$STATIC_CHECKS_RESULT" != "success" || "$BUILD_RESULT" != "success" ]]; then
+          if [[ "$STATIC_CHECKS_RESULT" != "success" || \
+                "$BUILD_RESULT" != "success" || \
+                "$MIRI_RESULT" != "success" ]]; then
             echo "static-checks: $STATIC_CHECKS_RESULT"
             echo "build: $BUILD_RESULT"
+            echo "miri: $MIRI_RESULT"
             exit 1
           fi
