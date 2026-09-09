@@ -1,2 +1,4 @@
 /out
 /rust-project.json
+/target
+Cargo.lock
