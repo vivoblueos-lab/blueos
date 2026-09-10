@@ -43,6 +43,8 @@ header: # `header` section is configurations for source codes license header.
       - "**/*.bak"
       - "CREDITS/**"
       - ".licenserc.yaml"
+      - "blueos-version"
+      - "josh-sync.toml"
       - "**/common_checker.test" # qemu checker
       - "**/*.checker"
       - "newlib/include/**"
