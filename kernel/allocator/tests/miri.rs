@@ -377,3 +377,36 @@ fn dynamic_slab_heap_small_and_system_allocations() {
     }
     assert_eq!(heap.allocated(), 0);
 }
+
+#[cfg(allocator = "slab_dynamic")]
+#[test]
+fn dynamic_slab_heap_reuses_page_after_full_to_available_transition() {
+    use allocator_crate::slab::DynamicSlabHeap;
+
+    let mut arena = Arena([MaybeUninit::uninit(); 256 * 1024]);
+    let arena = &mut arena.0[..];
+    let mut heap = DynamicSlabHeap::new();
+    unsafe { heap.init(arena.as_mut_ptr().expose_provenance(), arena.len()) };
+
+    // Four 1024-byte blocks fill one page. The fifth allocation creates a
+    // second page which remains available.
+    let block_layout = layout(1024, 8);
+    let first = heap.allocate(&block_layout).unwrap();
+    let second = heap.allocate(&block_layout).unwrap();
+    let third = heap.allocate(&block_layout).unwrap();
+    let fourth = heap.allocate(&block_layout).unwrap();
+    let fifth = heap.allocate(&block_layout).unwrap();
+
+    // Freeing from the full first page must put that page at the head of the
+    // available-page list, so the next allocation reuses the exact block.
+    unsafe { heap.deallocate(first, &block_layout) };
+    let reused = heap.allocate(&block_layout).unwrap();
+    assert_eq!(reused, first);
+
+    for pointer in [reused, second, third, fourth, fifth] {
+        unsafe { heap.deallocate(pointer, &block_layout) };
+    }
+    assert_eq!(heap.allocated(), 0);
+
+    heap.reclaim_page_pool();
+}

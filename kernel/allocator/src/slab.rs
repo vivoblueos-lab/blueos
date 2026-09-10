@@ -467,7 +467,7 @@ const DEFAULT_MAX_TOTAL_PAGES: usize = 32;
 #[cfg(allocator = "slab_dynamic")]
 #[inline]
 fn page_to_meta_index(page_addr: usize, heap_base: usize) -> usize {
-    (page_addr - heap_base) / PAGE_SIZE
+    (page_addr - heap_base) >> PAGE_SHIFT
 }
 
 /// Get metadata for a page address
@@ -565,6 +565,10 @@ unsafe fn list_remove(
     if next != max_pages {
         (*metadata.add(next)).prev_page = prev;
     }
+
+    let meta = &mut *metadata.add(page_idx);
+    meta.next_page = max_pages;
+    meta.prev_page = max_pages;
 }
 
 /// Pop page from front of list
@@ -637,7 +641,8 @@ fn ptr_is_slab(
 #[cfg(allocator = "slab_dynamic")]
 struct DynamicSlab {
     block_size: usize,
-    page_list_head: usize, // Index into metadata array, max_pages = empty
+    // Head of pages with at least one free block. Full pages are not linked.
+    available_page_head: usize, // Index into metadata array, max_pages = empty
     total_blocks: usize,
     free_blocks: usize,
 }
@@ -647,7 +652,7 @@ impl DynamicSlab {
     const fn new() -> Self {
         DynamicSlab {
             block_size: 0,
-            page_list_head: usize::MAX,
+            available_page_head: usize::MAX,
             total_blocks: 0,
             free_blocks: 0,
         }
@@ -695,7 +700,7 @@ impl DynamicSlab {
         meta.next_page = max_pages;
         meta.prev_page = max_pages;
 
-        // Add to page list
+        // A fresh page is available for allocation.
         let page_idx = page_to_meta_index(page_addr, heap_base);
         if page_idx >= max_pages {
             panic!(
@@ -703,7 +708,7 @@ impl DynamicSlab {
                 page_idx, max_pages, page_addr, heap_base
             );
         }
-        list_push_front(&mut self.page_list_head, page_idx, metadata, max_pages);
+        list_push_front(&mut self.available_page_head, page_idx, metadata, max_pages);
         self.total_blocks += total;
         self.free_blocks += total;
     }
@@ -722,6 +727,7 @@ impl DynamicSlab {
             meta.free_blocks, meta.total_blocks,
             "Page from pool must be fully free"
         );
+        let total = meta.total_blocks as usize;
         let page_idx = page_to_meta_index(page_addr, heap_base);
         if page_idx >= max_pages {
             panic!(
@@ -729,12 +735,12 @@ impl DynamicSlab {
                 page_idx, max_pages, page_addr, heap_base
             );
         }
-        list_push_front(&mut self.page_list_head, page_idx, metadata, max_pages);
-        self.total_blocks += meta.total_blocks as usize;
-        self.free_blocks += meta.total_blocks as usize;
+        list_push_front(&mut self.available_page_head, page_idx, metadata, max_pages);
+        self.total_blocks += total;
+        self.free_blocks += total;
     }
 
-    /// Allocate one block from the first page that has free blocks.
+    /// Allocate one block from the first available page.
     /// Returns `None` if all pages are full (caller must add a new page first).
     unsafe fn allocate_block(
         &mut self,
@@ -742,16 +748,24 @@ impl DynamicSlab {
         heap_base: usize,
         max_pages: usize,
     ) -> Option<NonNull<u8>> {
-        let mut page_idx = self.page_list_head;
-        while page_idx != max_pages {
-            let meta = &*metadata.add(page_idx);
-            if meta.free_blocks > 0 {
-                let page_addr = heap_base + page_idx * PAGE_SIZE;
-                return Some(self.pop_from_page(page_addr, metadata, heap_base));
-            }
-            page_idx = meta.next_page;
+        let page_idx = self.available_page_head;
+        if page_idx == max_pages {
+            return None;
         }
-        None
+        debug_assert!(
+            (*metadata.add(page_idx)).free_blocks > 0,
+            "available-page list contains a full page"
+        );
+
+        let page_addr = heap_base + (page_idx << PAGE_SHIFT);
+        let ptr = self.pop_from_page(page_addr, metadata, heap_base);
+
+        // A full page cannot satisfy subsequent allocations, so unlink it.
+        if (*metadata.add(page_idx)).free_blocks == 0 {
+            list_remove(&mut self.available_page_head, page_idx, metadata, max_pages);
+        }
+
+        Some(ptr)
     }
 
     /// Pop one block from the free list of the given page.
@@ -787,24 +801,35 @@ impl DynamicSlab {
         ptr: NonNull<u8>,
         metadata: *mut PageMetadata,
         heap_base: usize,
+        max_pages: usize,
     ) -> (usize, bool) {
         let ptr_addr = ptr.as_ptr() as usize;
         let page_addr = ptr_addr & !(PAGE_SIZE - 1);
-        let meta = get_page_meta(page_addr, metadata, heap_base);
+        let page_idx = page_to_meta_index(page_addr, heap_base);
+        let (was_full, fully_free) = {
+            let meta = &mut *metadata.add(page_idx);
 
-        debug_assert_eq!(meta.page_magic, PAGE_MAGIC);
-        debug_assert!(
-            meta.free_blocks < meta.total_blocks,
-            "double-free detected at {:p}",
-            ptr.as_ptr()
-        );
+            debug_assert_eq!(meta.page_magic, PAGE_MAGIC);
+            debug_assert!(
+                meta.free_blocks < meta.total_blocks,
+                "double-free detected at {:p}",
+                ptr.as_ptr()
+            );
 
-        *(ptr.as_ptr() as *mut usize) = meta.free_head;
-        meta.free_head = ptr_addr;
-        meta.free_blocks += 1;
-        self.free_blocks += 1;
+            let was_full = meta.free_blocks == 0;
+            *(ptr.as_ptr() as *mut usize) = meta.free_head;
+            meta.free_head = ptr_addr;
+            meta.free_blocks += 1;
+            self.free_blocks += 1;
 
-        let fully_free = meta.free_blocks == meta.total_blocks;
+            (was_full, meta.free_blocks == meta.total_blocks)
+        };
+
+        // The page becomes eligible for allocation again after its first free.
+        if was_full {
+            list_push_front(&mut self.available_page_head, page_idx, metadata, max_pages);
+        }
+
         (page_addr, fully_free)
     }
 
@@ -821,16 +846,15 @@ impl DynamicSlab {
         heap_base: usize,
         max_pages: usize,
     ) {
-        let meta = get_page_meta(page_addr, metadata, heap_base);
-        let total = meta.total_blocks as usize;
-
-        // Remove from list
         let page_idx = page_to_meta_index(page_addr, heap_base);
-        list_remove(&mut self.page_list_head, page_idx, metadata, max_pages);
+        let total = (*metadata.add(page_idx)).total_blocks as usize;
+
+        // A fully free active page is always linked as available.
+        list_remove(&mut self.available_page_head, page_idx, metadata, max_pages);
 
         self.total_blocks -= total;
         self.free_blocks -= total;
-        meta.page_magic = 0;
+        (*metadata.add(page_idx)).page_magic = 0;
     }
 }
 
@@ -1037,7 +1061,7 @@ impl DynamicSlabHeap {
         }
 
         for i in 0..SLAB_ALLOCATOR_COUNT {
-            self.slabs[i].page_list_head = self.max_pages;
+            self.slabs[i].available_page_head = self.max_pages;
             self.slabs[i].set_block_size(Self::SLAB_SIZES[i]);
         }
         self.prewarm_critical_slabs();
@@ -1192,7 +1216,7 @@ impl DynamicSlabHeap {
     /// return the page to TLSF.
     unsafe fn free_slab_block(&mut self, ptr: NonNull<u8>, idx: usize) -> usize {
         let (page_addr, page_empty) =
-            self.slabs[idx].free_block(ptr, self.metadata, self.heap_base);
+            self.slabs[idx].free_block(ptr, self.metadata, self.heap_base, self.max_pages);
         self.allocated -= Self::SLAB_SIZES[idx];
 
         if page_empty {
