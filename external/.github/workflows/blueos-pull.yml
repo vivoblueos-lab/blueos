@@ -1,21 +1,19 @@
 name: Sync BlueOS
-
 on:
+  repository_dispatch:
+    types: [blueos-pull]
   # 定时触发
   schedule:
     - cron: "29 2 * * 1,4"
   # 允许网页界面手动触发
   workflow_dispatch:
-
 permissions:
   contents: write
   pull-requests: write
-
 # 并发控制
 concurrency:
   group: blueos-pull
   cancel-in-progress: false
-
 jobs:
   pull:
     uses: vivoblueos-lab/josh-sync/.github/workflows/blueos-pull.yml@88ae50df70f35653e30c997b433c0409a5824315
