@@ -16,6 +16,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   pull:
+    if: ${{ vars.JOSH_SYNC_ENABLED == 'true' }}
     uses: vivoblueos-lab/josh-sync/.github/workflows/blueos-pull.yml@88ae50df70f35653e30c997b433c0409a5824315
     with:
       # 这里的 APP_CLIENT_ID 和 APP_PRIVATE_KEY 是从仓库变量和秘密中获取的
