@@ -19,6 +19,7 @@ permissions:
   contents: read
 jobs:
   notify:
+    if: ${{ vars.JOSH_SYNC_ENABLED == 'true' }}
     name: notify affected subrepos
     runs-on: ubuntu-latest
     timeout-minutes: 10

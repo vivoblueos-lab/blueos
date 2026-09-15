@@ -10,10 +10,18 @@ format and license headers of files changed by a pull request.
 their `josh-sync.toml` files. GitHub Actions invokes these tools from the
 repository root.
 
-The `Notify subrepos` workflow requires the `APP_CLIENT_ID` repository variable
-and `APP_PRIVATE_KEY` repository secret. The GitHub App must be installed on the
-component repositories with `Contents: write`, which permits the workflow to
-send their `blueos-pull` repository dispatch event.
+The synchronization workflows require the `JOSH_SYNC_ENABLED` organization
+variable to be available to the centralized repository and every component
+repository. Synchronization jobs run only when its value is exactly `true`.
+Setting it to any other value prevents new synchronization jobs from starting,
+but does not cancel jobs that are already running. After re-enabling
+synchronization, manually run `Sync BlueOS` in each component repository if an
+immediate catch-up is required.
+
+The `Notify subrepos` workflow also requires the `APP_CLIENT_ID` repository
+variable and `APP_PRIVATE_KEY` repository secret. The GitHub App must be
+installed on the component repositories with `Contents: write`, which permits
+the workflow to send their `blueos-pull` repository dispatch event.
 
 When this workflow is deployed for the first time, run the existing `Sync
 BlueOS` workflow once in every component repository (or wait for its scheduled
