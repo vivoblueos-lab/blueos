@@ -1,0 +1,20 @@
+{
+    // 1. 在资源管理器中隐藏
+    "files.exclude": {
+        "**/external": true,
+        "**/out": true,
+        "**/target": true
+    },
+    // 2. 在全局搜索中排除
+    "search.exclude": {
+        "**/external": true,
+        "**/out": true,
+        "**/target": true
+    },
+    // 3. 彻底阻止文件监听 (可提升性能)
+    "files.watcherExclude": {
+        "**/external": true,
+        "**/out": true,
+        "**/target": true
+    }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "BlueOS Development"
+  short_description: "Build, test, and contribute to BlueOS"
+  default_prompt: "Use $blueos-dev to choose and run the correct BlueOS build and validation workflow for my changes."
