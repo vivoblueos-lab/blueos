@@ -1,7 +1,7 @@
-name: Push kernel changes to BlueOS
+name: Push libc changes to BlueOS
 on:
   push:
-    branches: [main]
+    branches: [blueos-dev]
   workflow_dispatch:
 permissions:
   contents: read
