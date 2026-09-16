@@ -1,4 +1,4 @@
-name: Sync BlueOS
+name: Pull changes from BlueOS
 on:
   repository_dispatch:
     types: [blueos-pull]
