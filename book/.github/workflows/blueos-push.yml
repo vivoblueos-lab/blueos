@@ -1,4 +1,4 @@
-name: Push kernel changes to BlueOS
+name: Push book changes to BlueOS
 on:
   push:
     branches: [main]
