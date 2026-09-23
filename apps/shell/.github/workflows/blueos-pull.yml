@@ -17,7 +17,7 @@ concurrency:
 jobs:
   pull:
     if: ${{ vars.JOSH_SYNC_ENABLED == 'true' }}
-    uses: vivoblueos-lab/josh-sync/.github/workflows/blueos-pull.yml@767054ad6774bb04fcef1146a5c959e3a79f37ec
+    uses: vivoblueos-lab/josh-sync/.github/workflows/blueos-pull.yml@4cba5d58d9673fe39165359a151e45d1245dfd8f
     with:
       # 这里的 JOSH_SYNC_APP_CLIENT_ID 和 JOSH_SYNC_APP_PRIVATE_KEY 是从组织变量和秘密中获取的
       github-app-client-id: ${{ vars.JOSH_SYNC_APP_CLIENT_ID }}
@@ -25,7 +25,7 @@ jobs:
       pr-author: "blueos-lab-josh-sync[bot]"
       josh-sync-repository: vivoblueos-lab/josh-sync
       # 和上文的 workflow 版本保持一致
-      josh-sync-revision: 767054ad6774bb04fcef1146a5c959e3a79f37ec
+      josh-sync-revision: 4cba5d58d9673fe39165359a151e45d1245dfd8f
       branch-name: blueos-pull
       # 这里填的是当前子仓库的默认分支, libc的比较特殊
       pr-base-branch: main
