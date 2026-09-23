@@ -18,28 +18,7 @@ jobs:
       - name: Require an approval for human pull requests
         env:
           GH_TOKEN: ${{ github.token }}
+          PULL_NUMBER: ${{ github.event.pull_request.number }}
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
           PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          set -euo pipefail
-          if [[ "$PR_AUTHOR" == "$SYNC_AUTHOR" ]]; then
-            echo "Josh sync pull request detected; approval is not required."
-            exit 0
-          fi
-
-          reviews="$(gh api \
-            "repos/${GITHUB_REPOSITORY}/pulls/${{ github.event.pull_request.number }}/reviews" \
-            --paginate)"
-          approved="$(jq \
-            --arg sha "$PR_HEAD_SHA" \
-            '[.[] | select(
-              .state == "APPROVED" and
-              (.commit_id == $sha or (.submitted_at != null and .submitted_at != ""))
-            )] | length' <<<"$reviews")"
-
-          if (( approved == 0 )); then
-            echo "::error::Human pull requests require at least one approval on the latest head commit."
-            exit 1
-          fi
-          echo "Human pull request approval requirement satisfied."
-
+        run: python scripts/require_pull_request_approval.py
