@@ -11,12 +11,12 @@ concurrency:
 jobs:
   push:
     if: ${{ vars.JOSH_SYNC_ENABLED == 'true' }}
-    uses: vivoblueos-lab/josh-sync/.github/workflows/blueos-push.yml@7a481f320c2aacc9d4888e485e52103c215f63fc
+    uses: vivoblueos-lab/josh-sync/.github/workflows/blueos-push.yml@c082fa6927f0e84a8df873378315568bc4fe76ac
     with:
       github-app-client-id: ${{ vars.JOSH_SYNC_APP_CLIENT_ID }}
       pr-author: "blueos-lab-josh-sync[bot]"
       josh-sync-repository: vivoblueos-lab/josh-sync
-      josh-sync-revision: 7a481f320c2aacc9d4888e485e52103c215f63fc
+      josh-sync-revision: c082fa6927f0e84a8df873378315568bc4fe76ac
     secrets:
       github-app-secret: ${{ secrets.JOSH_SYNC_APP_PRIVATE_KEY }}
       approval-user-token: ${{ secrets.JOSH_SYNC_APPROVAL_USER_TOKEN }}
