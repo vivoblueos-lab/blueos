@@ -1,0 +1,15 @@
+name: Josh Sync Required Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  required-check:
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 0
