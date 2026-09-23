@@ -4,12 +4,28 @@ on:
   pull_request:
     branches:
       - main
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - review_requested
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   required-check:
     runs-on: ubuntu-latest
+    env:
+      SYNC_AUTHOR: blueos-lab-josh-sync[bot]
     steps:
-      - run: exit 0
+      - uses: actions/checkout@v6
+
+      - name: Require an approval for human pull requests
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PULL_NUMBER: ${{ github.event.pull_request.number }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: python scripts/require_pull_request_approval.py
