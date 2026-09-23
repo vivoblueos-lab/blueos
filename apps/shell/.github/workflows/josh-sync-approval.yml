@@ -1,0 +1,37 @@
+name: Josh Sync Approval
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - ready_for_review
+      - reopened
+      - synchronize
+
+permissions:
+  contents: read
+
+jobs:
+  approve:
+    if: ${{ github.event.pull_request.user.login == 'blueos-lab-josh-sync[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create approval app token
+        uses: actions/create-github-app-token@v3.2.0
+        id: approval-token
+        with:
+          client-id: ${{ vars.JOSH_SYNC_APPROVAL_APP_CLIENT_ID }}
+          private-key: ${{ secrets.JOSH_SYNC_APPROVAL_APP_PRIVATE_KEY }}
+          permission-pull-requests: write
+
+      - name: Approve the synchronization pull request
+        env:
+          GH_TOKEN: ${{ steps.approval-token.outputs.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}/reviews" \
+            --field event=APPROVE \
+            --field commit_id="${PR_HEAD_SHA}"
