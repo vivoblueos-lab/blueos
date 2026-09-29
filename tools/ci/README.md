@@ -15,7 +15,7 @@ variable to be available to the centralized repository and every component
 repository. Synchronization jobs run only when its value is exactly `true`.
 Setting it to any other value prevents new synchronization jobs from starting,
 but does not cancel jobs that are already running. After re-enabling
-synchronization, manually run `Sync BlueOS` in each component repository if an
+synchronization, manually run `Pull changes from BlueOS` in each component repository if an
 immediate catch-up is required.
 
 The `Notify subrepos` workflow also requires the `APP_CLIENT_ID` repository
