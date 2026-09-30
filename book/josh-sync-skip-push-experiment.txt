@@ -3,3 +3,4 @@ Origin: central repository business change
 Pinned revision: 8c1d18be7a2cdf5c32d38c1fd10562d344e0756d
 Expected: pull this file, then skip reverse push when only blueos-version differs.
 Local business update from book: reverse push must include this line.
+Second central business update: advance pull baseline after the local change was merged.
