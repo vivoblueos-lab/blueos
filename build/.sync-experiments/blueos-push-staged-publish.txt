@@ -1,5 +1,5 @@
 experiment=blueos-push-staged-publish
 repository=vivoblueos-lab/build
 workflow_revision=cbef7fdd806d63e75bca610c3c809a3475635ca7
-subrepo_change=2
+subrepo_change=3
 monorepo_change=1
