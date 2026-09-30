@@ -1,0 +1,5 @@
+experiment=blueos-push-version-only
+repository=vivoblueos-lab/book
+workflow_revision=09d9aae9262d6345c6864c540cdb68cd888b37fc
+subrepo_change=1
+monorepo_change=0
